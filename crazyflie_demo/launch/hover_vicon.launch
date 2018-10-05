@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="uri" default="radio://0/90/2M" />
-  <arg name="frame" default="/vicon/crazyflie/crazyflie" />
+  <arg name="uri" default="radio://0/80/2M/E7E7E7E701" />
+  <arg name="frame" default="/vicon/crazyflie1/crazyflie1" />
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="x" default="0" />
   <arg name="y" default="0" />
@@ -10,10 +10,10 @@
   <include file="$(find crazyflie_driver)/launch/crazyflie_server.launch">
   </include>
 
-  <group ns="crazyflie">
+  <group ns="crazyflie1">
     <include file="$(find crazyflie_driver)/launch/crazyflie_add.launch">
       <arg name="uri" value="$(arg uri)" />
-      <arg name="tf_prefix" value="crazyflie" />
+      <arg name="tf_prefix" value="crazyflie1" />
       <arg name="enable_logging" value="False" />
     </include>
 
@@ -46,5 +46,8 @@
   <!-- run rviz -->
   <param name="robot_description" command="$(find xacro)/xacro.py $(find crazyflie_description)/urdf/crazyflie.urdf.xacro" />
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find crazyflie_demo)/launch/crazyflie_pos.rviz" required="true" />
+
+  <!-- run rqt_plot for interested variables -->
+  <!-- node pkg="rqt_plot" type="rqt_plot" name="rqt_plot2" args="/crazyflie1/battery"/> -->
 
 </launch>
