@@ -3,13 +3,13 @@
   <arg name="joy_dev" default="/dev/input/js0" />
 
   <arg name="uri1" default="radio://0/80/2M/E7E7E7E701" />
-  <arg name="frame1" default="/vicon/crazyflie1/crazyflie1" />
+  <arg name="frame1" default="/vicon/cf1/cf1" />
   <arg name="x1" default="0" />
   <arg name="y1" default="0.0" />
   <arg name="z1" default="0.5" />
 
   <arg name="uri2" default="radio://0/80/2M/E7E7E7E702" />
-  <arg name="frame2" default="/vicon/crazyflie2/crazyflie2" />
+  <arg name="frame2" default="/vicon/cf2/cf2" />
   <arg name="x2" default="0" />
   <arg name="y2" default="-0.75" />
   <arg name="z2" default="0.5" />
@@ -21,10 +21,10 @@
     <param name="dev" value="$(arg joy_dev)" />
   </node>
 
-  <group ns="crazyflie1">
+  <group ns="cf1">
     <include file="$(find crazyflie_driver)/launch/crazyflie_add.launch">
       <arg name="uri" value="$(arg uri1)" />
-      <arg name="tf_prefix" value="crazyflie1" />
+      <arg name="tf_prefix" value="cf1" />
       <arg name="enable_logging" value="False" />
     </include>
 
@@ -45,13 +45,13 @@
       <param name="z" value="$(arg z1)" />
     </node>
 
-    <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame1) /crazyflie1/base_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame1) /cf1/base_link 100" />
   </group>
 
-  <group ns="crazyflie2">
+  <group ns="cf2">
     <include file="$(find crazyflie_driver)/launch/crazyflie_add.launch">
       <arg name="uri" value="$(arg uri2)" />
-      <arg name="tf_prefix" value="crazyflie2" />
+      <arg name="tf_prefix" value="cf2" />
       <arg name="enable_logging" value="False" />
     </include>
 
@@ -72,7 +72,7 @@
       <param name="z" value="$(arg z2)" />
     </node>
 
-    <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame2) /crazyflie2/base_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame2) /cf2/base_link 100" />
   </group>
 
   <!-- run vicon bridge -->
