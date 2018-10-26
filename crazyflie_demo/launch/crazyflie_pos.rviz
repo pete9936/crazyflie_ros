@@ -3,7 +3,8 @@ Panels:
     Help Height: 81
     Name: Displays
     Property Tree Widget:
-      Expanded: ~
+      Expanded:
+        - /RobotModel1
       Splitter Ratio: 0.617241025
     Tree Height: 689
   - Class: rviz/Selection
@@ -63,7 +64,7 @@ Visualization Manager:
           Value: true
       Name: RobotModel
       Robot Description: robot_description
-      TF Prefix: crazyflie
+      TF Prefix: cf1
       Update Interval: 0
       Value: true
       Visual Enabled: true
@@ -79,7 +80,7 @@ Visualization Manager:
       Shaft Length: 0.100000001
       Shaft Radius: 0.0199999996
       Shape: Arrow
-      Topic: /crazyflie/goal
+      Topic: /cf1/goal
       Unreliable: false
       Value: true
     - Class: rviz/TF
@@ -87,11 +88,11 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        crazyflie/base_link:
+        cf1/base_link:
           Value: true
-        vicon/crazyflie1/crazyflie1:
+        vicon/cf1/cf1:
           Value: true
-        vicon/crazyflie2/crazyflie2:
+        vicon/cf2/cf2:
           Value: true
         world:
           Value: true
@@ -102,11 +103,11 @@ Visualization Manager:
       Show Names: true
       Tree:
         world:
-          vicon/crazyflie1/crazyflie1:
-            {}
-          vicon/crazyflie2/crazyflie2:
-            crazyflie/base_link:
+          vicon/cf1/cf1:
+            cf1/base_link:
               {}
+          vicon/cf2/cf2:
+            {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -141,18 +142,18 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.95697403
-        Y: 0.0562646016
-        Z: 0.145126
+        X: 0.730236828
+        Y: -0.144272923
+        Z: -0.237104744
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.555397987
+      Pitch: 0.435398012
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.19541001
+      Yaw: 3.40041351
     Saved:
       - Class: rviz/Orbit
         Distance: 3.71652484
