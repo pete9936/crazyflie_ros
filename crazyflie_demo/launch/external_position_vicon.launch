@@ -1,15 +1,25 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="uri" default="radio://0/90/2M" />
-  <arg name="frame" default="/vicon/cf/cf" />
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="uri" default="radio://0/80/2M/E7E7E7E701" />
+  <arg name="frame" default="/vicon/cf1/cf1" />
+  <arg name="frame2" default="/vicon/base/base" />
+  <arg name="x" default="0" />
+  <arg name="y" default="0" />
+  <arg name="z" default="0.5" />
+
 
   <include file="$(find crazyflie_driver)/launch/crazyflie_server.launch">
   </include>
 
-  <group ns="crazyflie">
+  <node name="joy" pkg="joy" type="joy_node" output="screen">
+    <param name="dev" value="$(arg joy_dev)" />
+  </node>
+
+  <group ns="cf1">
     <node pkg="crazyflie_driver" type="crazyflie_add" name="crazyflie_add" output="screen">
       <param name="uri" value="$(arg uri)" />
-      <param name="tf_prefix" value="crazyflie" />
+      <param name="tf_prefix" value="cf1" />
       <param name="enable_logging_imu" value="False" />
       <param name="enable_logging_temperature" value="False" />
       <param name="enable_logging_magnetic_field" value="False" />
@@ -24,10 +34,10 @@
     </node>
 
     <node name="pose" pkg="crazyflie_demo" type="publish_external_position_vicon.py" output="screen">
-      <param name="topic" value="$(arg frame)" />
+      <param name="topic" value="$(arg frame2)" />
     </node>
 
-    <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame) /crazyflie/base_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame) /cf1/base_link 100" />
   </group>
 
   <!-- run vicon bridge -->

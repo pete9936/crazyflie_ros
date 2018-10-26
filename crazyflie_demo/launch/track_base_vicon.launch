@@ -4,8 +4,8 @@
   <arg name="frame1" default="/vicon/cf1/cf1" />
   <arg name="frame2" default="/vicon/base/base" />
   <arg name="joy_dev" default="/dev/input/js0" />
-  <arg name="x" default="0" />
-  <arg name="y" default="0" />
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
   <arg name="z" default="0.5" />
 
   <include file="$(find crazyflie_driver)/launch/crazyflie_server.launch">
@@ -31,21 +31,27 @@
       <arg name="frame" value="$(arg frame1)" />
     </include>
 
-    <!-- node name="pose" pkg="crazyflie_demo" type="demo1.py" output="screen">
+    <!-- node name="pose" pkg="crazyflie_demo" type="demo_quick_hover.py" output="screen">
       <param name="frame" value="$(arg frame1)" />
     </node -->
 
-    <node name="pose" pkg="crazyflie_demo" type="publish_pose.py" output="screen">
-      <param name="frame" value="$(arg frame2)" />
-      <param name="rate" value="20" />
+    <node name="pose" pkg="crazyflie_demo" type="publish_external_position_vicon.py" output="screen">
+      <param name="topic" value="$(arg frame2)" />
       <param name="x" value="$(arg x)" />
       <param name="y" value="$(arg y)" />
-      <param name="z" value="$(arg z) + .25" />
+      <param name="z" value="$(arg z)" />
     </node>
 
+    <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame1) /cf1/base_link 100" />
   </group>
+
+    <node pkg="tf" type="static_transform_publisher" name="baselink_broadcaster" args="0 0 0 0 0 0 1 $(arg frame2) /base/base_link 100" />
 
   <!-- run vicon bridge -->
   <include file="$(find vicon_bridge)/launch/vicon.launch"/>
+
+  <!-- run rviz -->
+  <param name="robot_description" command="$(find xacro)/xacro.py $(find crazyflie_description)/urdf/crazyflie.urdf.xacro" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find crazyflie_demo)/launch/crazyflie_pos.rviz" required="true" />
 
 </launch>

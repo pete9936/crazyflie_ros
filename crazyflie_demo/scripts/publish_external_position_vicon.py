@@ -33,7 +33,10 @@ def onNewTransform(transform):
 
 if __name__ == '__main__':
     rospy.init_node('publish_external_position_vicon', anonymous=True)
-    topic = rospy.get_param("~topic", "/vicon/cf/cf")
+    topic = rospy.get_param("~topic", "/vicon/base/base")
+    x = rospy.get_param("~x")
+    y = rospy.get_param("~y")
+    z = rospy.get_param("~z")
 
     rospy.wait_for_service('update_params')
     rospy.loginfo("found update_params service")
